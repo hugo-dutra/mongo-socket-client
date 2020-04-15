@@ -36,7 +36,7 @@ export default class MongoSocketClient {
   */
   public insertDocument(document: Object, collection: string): Promise<any> {
     return new Promise((resolve: any, reject: any) => {
-      const insertOne = this.socketClient.emit(EMMITER.INSERT_ONE, this.databaseName, collection, { document: document });
+      const insertOne = this.socketClient.emit(EMMITER.INSERT_ONE, this.databaseName, collection, document);
       insertOne.on(ON.STATUS_SUCCESS, (value: any) => {
         resolve(value);
       });
