@@ -1,6 +1,8 @@
 export const EMMITER = {
   INSERT_ONE: 'insertOne',
   INSERT_MANY: 'insertMany',
+  DELETE_ONE: 'deleteOne',
+  DELETE_MANY: 'deleteMany',
   FIND: 'find',
   UPDATE: 'update',
   SUBSCRIBE_COLLECTION: 'subscribeCollection',
@@ -10,8 +12,8 @@ export const EMMITER = {
 }
 
 export const ON = {
+  COLLECTION_CHANGED: 'collectionChanged',
   STATUS_SUCCESS: 'success',
   STATUS_FAIL: 'fail',
   SUBSCRIBE_COLLECTION: 'subscribeCollection',
-  COLLECTION_CHANGED: 'collectionChanged',
 }

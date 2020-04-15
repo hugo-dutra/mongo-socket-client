@@ -8,7 +8,8 @@ export default class MongoSocketClient {
   private databaseName: string;
 
   /**
-   *
+   * @author Hugo Alves Dutra
+   * fell free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
    * @param host Socket host, ex.: http://127.0.0.1
    * @param port Socket host port, ex.: 3030
    * @param databaseName Name from target database
@@ -27,7 +28,8 @@ export default class MongoSocketClient {
   }
 
   /**
-  *
+  * @author Hugo Alves Dutra
+  * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
   * @param document Documento to write
   * @param collection Target collection
   * @returns Promise with object writed
@@ -45,7 +47,8 @@ export default class MongoSocketClient {
   }
 
   /**
-     *
+     * @author Hugo Alves Dutra
+     * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
      * @param documents Array from documents
      * @param collection Collection targered
      * @returns Promise with array from objects writed
@@ -63,7 +66,10 @@ export default class MongoSocketClient {
   }
 
   /**
+   * @author Hugo Alves Dutra
+   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
    * List colections from database
+   * @result List from collections to database informed
    */
   public listCollections(): Promise<any> {
     return new Promise((resolve: any, reject: any) => {
@@ -78,8 +84,11 @@ export default class MongoSocketClient {
   }
 
   /**
+   * @author Hugo Alves Dutra
+   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
    * List all objects from collection
    * @param collection Target collection
+   * @result Objects from colletion informed
    */
   public listAllObjectsFromCollection(collection: string): Promise<any> {
     return new Promise((resolve: any, reject: any) => {
@@ -94,9 +103,11 @@ export default class MongoSocketClient {
   }
 
   /**
+   * @author Hugo Alves Dutra
+   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
    * List objects from collection
    * @param collection Target collection
-   * @param queryObject Query object. Follow mondodb query pattern
+   * @param queryObject MongoDb query object {@link https://docs.mongodb.com/manual/tutorial/query-documents/}
    * @result Array from objects
    */
   public listObjectsFromCollection(collection: string, queryObject: Object): Promise<any> {
@@ -112,6 +123,48 @@ export default class MongoSocketClient {
   }
 
   /**
+   * @author Hugo Alves Dutra
+   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
+   * Delete single object from collection
+   * @param collection Collection targed
+   * @param objectId Target object from ObjectId
+   * @result Information from deleted object
+   */
+  public deleteObjectById(collection: string, objectId: string): Promise<any> {
+    return new Promise((resolve: any, reject: any) => {
+      const objectFromCollection = this.socketClient.emit(EMMITER.DELETE_ONE, this.databaseName, collection, objectId);
+      objectFromCollection.on(ON.STATUS_SUCCESS, (value: any) => {
+        resolve(value);
+      });
+      objectFromCollection.on(ON.STATUS_FAIL, (value: any) => {
+        reject(value);
+      });
+    });
+  }
+
+  /**
+   * @author Hugo Alves Dutra
+   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
+   * Deletec on or many objects from target collecton
+   * @param collection Target collection
+   * @param queryObject MongoDb query object {@link https://docs.mongodb.com/manual/tutorial/query-documents/}
+   * @result Information from objects deleted
+   */
+  public deleteObjects(collection: string, queryObject: Object): Promise<any> {
+    return new Promise((resolve: any, reject: any) => {
+      const objectsFromCollection = this.socketClient.emit(EMMITER.DELETE_MANY, this.databaseName, collection, queryObject);
+      objectsFromCollection.on(ON.STATUS_SUCCESS, (value: any) => {
+        resolve(value);
+      });
+      objectsFromCollection.on(ON.STATUS_FAIL, (value: any) => {
+        reject(value);
+      });
+    });
+  }
+
+  /**
+   * @author Hugo Alves Dutra
+   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
    * Find single object from collection
    * @param id _id mongodb identifier
    * @param collection Targed collection
@@ -131,9 +184,12 @@ export default class MongoSocketClient {
 
   /**
    * Update one or many objects
+   * @author Hugo Alves Dutra
+   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
    * @param collection Collection`s name
-   * @param queryObject Query (mongodb pattern)
+   * @param queryObject  MongoDb query object {@link https://docs.mongodb.com/manual/tutorial/query-documents/}
    * @param fieldsAndValues fiels to update on objects matches
+   * @result information from updated objects
    */
   public updateObjects(collection: string, queryObject: Object, fieldsAndValues: Object): Promise<any> {
     return new Promise((resolve: any, reject: any) => {
@@ -148,7 +204,10 @@ export default class MongoSocketClient {
   }
 
   /**
-   * Create on ChangeStream from collection informed
+   * @author Hugo Alves Dutra
+   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
+   * Create on ChangeStream from collection informed.
+   * *** THIS METHOD JUST WORK ON REPLICA SET MONGODB ***
    * @param collection Target Colection
    * @return documents changed
    */
