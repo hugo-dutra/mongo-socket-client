@@ -1,15 +1,15 @@
 import * as socket from 'socket.io-client';
 import { EMMITER, ON } from './shared/server.constants';
 import { Observable, Subscriber } from 'rxjs';
-import Promise from 'bluebird';
+
 
 export default class MongoSocketClient {
   private socketClient: SocketIOClient.Socket;
   private databaseName: string;
 
   /**
-   * @author Hugo Alves Dutra
-   * fell free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
+   * @author Hugo Alves Dutra |
+   * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
    * @param host Socket host, ex.: http://127.0.0.1
    * @param port Socket host port, ex.: 3030
    * @param databaseName Name from target database
@@ -29,7 +29,7 @@ export default class MongoSocketClient {
 
   /**
   * @author Hugo Alves Dutra
-  * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
+  * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
   * @param document Documento to write
   * @param collection Target collection
   * @returns Promise with object writed
@@ -48,7 +48,7 @@ export default class MongoSocketClient {
 
   /**
      * @author Hugo Alves Dutra
-     * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
+     * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
      * @param documents Array from documents
      * @param collection Collection targered
      * @returns Promise with array from objects writed
@@ -67,7 +67,7 @@ export default class MongoSocketClient {
 
   /**
    * @author Hugo Alves Dutra
-   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
+   * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
    * List colections from database
    * @result List from collections to database informed
    */
@@ -85,7 +85,7 @@ export default class MongoSocketClient {
 
   /**
    * @author Hugo Alves Dutra
-   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
+   * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
    * List all objects from collection
    * @param collection Target collection
    * @result Objects from colletion informed
@@ -104,10 +104,10 @@ export default class MongoSocketClient {
 
   /**
    * @author Hugo Alves Dutra
-   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
+   * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
    * List objects from collection
    * @param collection Target collection
-   * @param queryObject MongoDb query object {@link https://docs.mongodb.com/manual/tutorial/query-documents/}
+   * @param queryObject MongoDb query object @link https://docs.mongodb.com/manual/tutorial/query-documents/
    * @result Array from objects
    */
   public listObjectsFromCollection(collection: string, queryObject: Object): Promise<any> {
@@ -124,7 +124,7 @@ export default class MongoSocketClient {
 
   /**
    * @author Hugo Alves Dutra
-   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
+   * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
    * Delete single object from collection
    * @param collection Collection targed
    * @param objectId Target object from ObjectId
@@ -144,10 +144,10 @@ export default class MongoSocketClient {
 
   /**
    * @author Hugo Alves Dutra
-   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
-   * Deletec on or many objects from target collecton
+   * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
+   * Delete on or many objects from target collecton
    * @param collection Target collection
-   * @param queryObject MongoDb query object {@link https://docs.mongodb.com/manual/tutorial/query-documents/}
+   * @param queryObject MongoDb query object {@link https://docs.mongodb.com/manual/tutorial/query-documents/ }
    * @result Information from objects deleted
    */
   public deleteObjects(collection: string, queryObject: Object): Promise<any> {
@@ -164,7 +164,7 @@ export default class MongoSocketClient {
 
   /**
    * @author Hugo Alves Dutra
-   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
+   * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
    * Find single object from collection
    * @param id _id mongodb identifier
    * @param collection Targed collection
@@ -185,9 +185,9 @@ export default class MongoSocketClient {
   /**
    * Update one or many objects
    * @author Hugo Alves Dutra
-   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
+   * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
    * @param collection Collection`s name
-   * @param queryObject  MongoDb query object {@link https://docs.mongodb.com/manual/tutorial/query-documents/}
+   * @param queryObject  MongoDb query object {@link https://docs.mongodb.com/manual/tutorial/query-documents/ }
    * @param fieldsAndValues fiels to update on objects matches
    * @result information from updated objects
    */
@@ -205,7 +205,7 @@ export default class MongoSocketClient {
 
   /**
    * @author Hugo Alves Dutra
-   * Feel free to colaborate github: {@link https://github.com/hugo-dutra/mongo-socket-client}
+   * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
    * Create on ChangeStream from collection informed.
    * *** THIS METHOD JUST WORK ON REPLICA SET MONGODB ***
    * @param collection Target Colection
