@@ -11,6 +11,24 @@ export default class MongoSocketClient {
      */
     constructor(host: string, port: number, databaseName: string);
     /**
+     * @author Hugo Alves Dutra
+     * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
+     * disconnect from host
+     */
+    disconnect(): void;
+    /**
+     * @author Hugo Alves Dutra
+     * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
+     * connect to host
+     */
+    connect(): void;
+    /**
+     * @author Hugo Alves Dutra
+     * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
+     * reconnect to host
+     */
+    reconnect(): void;
+    /**
      * @returns Return status of connection
      */
     connected(): boolean;
@@ -82,6 +100,16 @@ export default class MongoSocketClient {
      */
     findObjectById(id: String, collection: string): Promise<any>;
     /**
+     * Replace one object
+     * @author Hugo Alves Dutra
+     * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
+     * @param collection Collection`s name
+     * @param queryObject  MongoDb query object {@link https://docs.mongodb.com/manual/tutorial/query-documents/ }
+     * @param fieldsAndValues fiels to update on objects matches
+     * @result information from updated objects
+     */
+    replaceOne(collection: string, queryObject: Object, fieldsAndValues: Object): Promise<any>;
+    /**
      * Update one or many objects
      * @author Hugo Alves Dutra
      * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
@@ -90,7 +118,17 @@ export default class MongoSocketClient {
      * @param fieldsAndValues fiels to update on objects matches
      * @result information from updated objects
      */
-    updateObjects(collection: string, queryObject: Object, fieldsAndValues: Object): Promise<any>;
+    updateOne(collection: string, queryObject: Object, fieldsAndValues: Object): Promise<any>;
+    /**
+     * Update one or many objects
+     * @author Hugo Alves Dutra
+     * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
+     * @param collection Collection`s name
+     * @param queryObject  MongoDb query object {@link https://docs.mongodb.com/manual/tutorial/query-documents/ }
+     * @param fieldsAndValues fiels to update on objects matches
+     * @result information from updated objects
+     */
+    updateMany(collection: string, queryObject: Object, fieldsAndValues: Object): Promise<any>;
     /**
      * @author Hugo Alves Dutra
      * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client

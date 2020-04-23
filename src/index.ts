@@ -19,6 +19,33 @@ export default class MongoSocketClient {
     this.databaseName = databaseName;
     this.socketClient.connected = true;
   }
+  /**
+   * @author Hugo Alves Dutra
+   * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
+   * disconnect from host
+   */
+  public disconnect(): void {
+    this.socketClient.disconnect();
+  }
+
+  /**
+   * @author Hugo Alves Dutra
+   * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
+   * connect to host
+   */
+  public connect(): void {
+    this.socketClient.disconnect();
+  }
+
+  /**
+   * @author Hugo Alves Dutra
+   * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
+   * reconnect to host
+   */
+  public reconnect(): void {
+    this.socketClient.disconnect();
+    this.socketClient.connect();
+  }
 
   /**
    * @returns Return status of connection
@@ -183,6 +210,27 @@ export default class MongoSocketClient {
   }
 
   /**
+   * Replace one object
+   * @author Hugo Alves Dutra
+   * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
+   * @param collection Collection`s name
+   * @param queryObject  MongoDb query object {@link https://docs.mongodb.com/manual/tutorial/query-documents/ }
+   * @param fieldsAndValues fiels to update on objects matches
+   * @result information from updated objects
+   */
+  public replaceOne(collection: string, queryObject: Object, fieldsAndValues: Object): Promise<any> {
+    return new Promise((resolve: any, reject: any) => {
+      const updateObjects = this.socketClient.emit(EMMITER.REPLACE_ONE, this.databaseName, collection, queryObject, fieldsAndValues);
+      updateObjects.on(ON.STATUS_SUCCESS, (value: any) => {
+        resolve(value);
+      });
+      updateObjects.on(ON.STATUS_FAIL, (reason: any) => {
+        reject(reason);
+      });
+    });
+  }
+
+  /**
    * Update one or many objects
    * @author Hugo Alves Dutra
    * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
@@ -191,9 +239,30 @@ export default class MongoSocketClient {
    * @param fieldsAndValues fiels to update on objects matches
    * @result information from updated objects
    */
-  public updateObjects(collection: string, queryObject: Object, fieldsAndValues: Object): Promise<any> {
+  public updateOne(collection: string, queryObject: Object, fieldsAndValues: Object): Promise<any> {
     return new Promise((resolve: any, reject: any) => {
-      const updateObjects = this.socketClient.emit(EMMITER.UPDATE, this.databaseName, collection, queryObject, fieldsAndValues);
+      const updateObjects = this.socketClient.emit(EMMITER.UPDATE_ONE, this.databaseName, collection, queryObject, fieldsAndValues);
+      updateObjects.on(ON.STATUS_SUCCESS, (value: any) => {
+        resolve(value);
+      });
+      updateObjects.on(ON.STATUS_FAIL, (reason: any) => {
+        reject(reason);
+      });
+    });
+  }
+
+  /**
+   * Update one or many objects
+   * @author Hugo Alves Dutra
+   * @link Feel free to colaborate github: https://github.com/hugo-dutra/mongo-socket-client
+   * @param collection Collection`s name
+   * @param queryObject  MongoDb query object {@link https://docs.mongodb.com/manual/tutorial/query-documents/ }
+   * @param fieldsAndValues fiels to update on objects matches
+   * @result information from updated objects
+   */
+  public updateMany(collection: string, queryObject: Object, fieldsAndValues: Object): Promise<any> {
+    return new Promise((resolve: any, reject: any) => {
+      const updateObjects = this.socketClient.emit(EMMITER.UPDATE_MANY, this.databaseName, collection, queryObject, fieldsAndValues);
       updateObjects.on(ON.STATUS_SUCCESS, (value: any) => {
         resolve(value);
       });
@@ -213,12 +282,14 @@ export default class MongoSocketClient {
    */
   public subscribeCollection(collection: string): Observable<any> {
     return new Observable((subscriber: Subscriber<any>) => {
-      const watchCollection = this.socketClient.emit(EMMITER.SUBSCRIBE_COLLECTION, this.databaseName, collection);
-      watchCollection.on(ON.COLLECTION_CHANGED, (doc: any) => {
-        subscriber.next(doc);
-      });
+      this.socketClient.emit(EMMITER.SUBSCRIBE_COLLECTION, this.databaseName, collection)
+        .on(ON.COLLECTION_CHANGED, (doc: any) => {
+          subscriber.next(doc);
+        });
     });
   }
+
+
 
 }
 
